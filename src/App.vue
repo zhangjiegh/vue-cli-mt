@@ -1,14 +1,15 @@
 <template>
     <div>
-        <mt-header :title="selected" class="header">
+        <mt-header :title="selected" class="header" :fixed="true">
             <mt-button icon="back" slot="left" @click="goback">返回</mt-button>
-            <mt-button icon="more" slot="right"></mt-button>
         </mt-header>
 
-        <keep-alive>
-            <router-view></router-view>
-        </keep-alive>
-        <mt-tabbar v-model="selected">
+        <div style="padding-top: 50px;padding-bottom: 50px">
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </div>
+        <mt-tabbar v-model="selected" :fixed="true">
             <mt-tab-item id="首页" >
                 <img slot="icon" src="http://placehold.it/100x100">
                 首页
