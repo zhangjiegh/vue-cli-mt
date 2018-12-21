@@ -1,31 +1,56 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div>
+        <mt-header :title="selected" class="header">
+            <mt-button icon="back" slot="left" @click="goback">返回</mt-button>
+            <mt-button icon="more" slot="right"></mt-button>
+        </mt-header>
+
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+        <mt-tabbar v-model="selected">
+            <mt-tab-item id="首页" >
+                <img slot="icon" src="http://placehold.it/100x100">
+                首页
+            </mt-tab-item>
+
+            <mt-tab-item id="购物车">
+                <img slot="icon" src="http://placehold.it/100x100">购物车
+            </mt-tab-item>
+        </mt-tabbar>
     </div>
-    <router-view/>
-  </div>
+
 </template>
+<script>
+    export default {
+        data() {
+            return {
+                show: false,
+                selected: '首页'
+            }
+        },
+        watch: {
+            selected: function (val, oldVal) {
+                if (val == '首页') {
+                    this.$router.push({path: '/'})
+                } else {
+                    this.$router.push({path: '/about'})
+                }
+            }
+        },
+        methods: {
+            goback() {
+                // this.$router.go(-1);
+                javascript: history.back(-1)
+            }
+        },
+    }
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style scoped>
+    .header {
+        height: 50px;
+    }
 </style>
